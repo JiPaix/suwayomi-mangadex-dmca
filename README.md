@@ -1,51 +1,57 @@
 # suwayomi-mangadex-dmca
 
-CLI tool to check MangaDex titles in your Suwayomi library that match takedown (DMCA) entries from a shared Google Sheet.
+CLI utility to identify MangaDex titles in your Suwayomi library affected by takedowns — known as [The Mangadex Massacre](https://docs.google.com/spreadsheets/d/1vxvAHxmLLgAEEq-jWbDw5fxHMdz1N_PNWe3OPXtrin0).
+
+It compares your library against a community-maintained Google Sheet and prints a list of flagged titles.
 
 ---
 
-## Usage
+## 📦 Installation & Usage
 
-### With `npx` (Node.js)
+### Run via `npx` (Node.js)
 
 ```bash
 npx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
 ```
 
-### With `bunx`
+### Run via `bunx`
 
 ```bash
 bunx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
 ```
 
-If your Suwayomi server requires authentication, use:
+### Run via `deno`
+
+```bash
+deno run -A npm:suwayomi-mangadex-dmca "http://127.0.0.1:4567"
+```
+
+---
+
+## 🔐 Authentication
+
+If your Suwayomi instance requires basic auth, pass it in the URL:
 
 ```bash
 npx suwayomi-mangadex-dmca "http://username:password@127.0.0.1:4567"
 ```
 
----
-
-### With `deno`
-
-```bash
-deno run -A https://deno.land/x/suwayomi_mangadex_dmca/main.ts "http://127.0.0.1:4567"
-```
+Same applies to `bunx` or `deno run` usage.
 
 ---
 
-## Output
+## 📊 Output
 
-The script prints a table of matching entries with:
+Displays a formatted table of MangaDex titles found in your Suwayomi library:
 
-* Manga title
-* Category
-* Status
-* Direct Suwayomi URL
+* **Title**: Manga title in your library
+* **Category**: Associated Suwayomi category
+* **Status**: Manga status (e.g. ONGOING, COMPLETED)
+* **URL**: Direct link to manga entry in your Suwayomi web UI
 
 ---
 
-## Example
+## 🧪 Example Output
 
 ```bash
 $ npx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
@@ -58,6 +64,12 @@ $ npx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
 
 ---
 
-## License
+## 📄 License
 
 MIT
+
+---
+
+## 👤 Maintainer
+
+[jipaix](https://github.com/jipaix) — Contributions and issues welcome!
