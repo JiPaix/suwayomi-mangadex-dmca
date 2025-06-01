@@ -170,7 +170,7 @@ async function main() {
   const striked = local.filter(v => 
     v.source.displayName === "MangaDex (EN)" &&
     gSheet.some(x => v.realUrl.includes(x.uuid))
-  ).map(v => ({title: v.title, category: v.category, status: v.status, url: `${SUWAYOMI.origin}/${v.id}`}))
+  ).map(v => ({title: v.title, category: v.category, status: v.status, url: `${SUWAYOMI.origin}/manga/${v.id}`}))
 
   console.table(striked);
 }
