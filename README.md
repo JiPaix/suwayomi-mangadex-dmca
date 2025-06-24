@@ -1,8 +1,8 @@
 # suwayomi-mangadex-dmca
 
-CLI utility to identify MangaDex titles in your Suwayomi library affected by takedowns — known as [The Mangadex Massacre](https://docs.google.com/spreadsheets/d/1vxvAHxmLLgAEEq-jWbDw5fxHMdz1N_PNWe3OPXtrin0).
+CLI utility to identify MangaDex titles in your Suwayomi library affected by takedowns — known as [The MangaDex Massacre](https://docs.google.com/spreadsheets/d/1vxvAHxmLLgAEEq-jWbDw5fxHMdz1N_PNWe3OPXtrin0).
 
-It compares your library against a community-maintained Google Sheet and prints a list of flagged titles.
+It compares your library against a community-maintained Google Sheet to flag entries that are either removed from the sheet (STRIKED) or have over 10% missing chapters (SUSPICIOUS), then outputs both a console table and a CSV file (`mangadex.csv`).
 
 ---
 
@@ -23,31 +23,44 @@ bunx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
 ### Run via `deno`
 
 ```bash
-deno run -A npm:suwayomi-mangadex-dmca "http://127.0.0.1:4567"
+deno run --allow-net --allow-write index.ts "http://127.0.0.1:4567"
 ```
+
+> **Note:**
+>
+> * `--allow-net` is required to fetch data from your Suwayomi server and Google Sheets.
+> * `--allow-write` is required to generate the `mangadex.csv` file.
 
 ---
 
 ## 🔐 Authentication
 
-If your Suwayomi instance requires basic auth, pass it in the URL:
+If your Suwayomi instance requires basic auth, include credentials in the URL:
 
 ```bash
 npx suwayomi-mangadex-dmca "http://username:password@127.0.0.1:4567"
 ```
 
-Same applies to `bunx` or `deno run` usage.
+Same applies for `bunx` or `deno run` usage.
 
 ---
 
 ## 📊 Output
 
-Displays a formatted table of MangaDex titles found in your Suwayomi library:
+This tool produces two outputs:
 
-* **Title**: Manga title in your library
-* **Category**: Associated Suwayomi category
-* **Status**: Manga status (e.g. ONGOING, COMPLETED)
-* **URL**: Direct link to manga entry in your Suwayomi web UI
+1. **Console Table**
+
+   * **Title**: Manga title in your library
+   * **Categories**: Associated categories (if any)
+   * **Status**: Manga status (e.g. ONGOING, COMPLETED)
+   * **Type**: `STRIKED` if present in Mangadex Massacre sheet, or `SUSPICIOUS` if >10% chapters missing
+   * **% Of missing chapters**: Percentage of chapters missing
+   * **URL**: Direct link to the manga on your Suwayomi web UI
+
+2. **CSV File** (`mangadex.csv`)
+
+   * Same columns as above, exported to the current directory.
 
 ---
 
@@ -55,11 +68,13 @@ Displays a formatted table of MangaDex titles found in your Suwayomi library:
 
 ```bash
 $ npx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
-┌─────────┬─────────────────────────────┬───────────┬────────────┬────────────────────────────────────────┐
-│ (index) │ title                       │ category  │ status     │ url                                    │
-├─────────┼─────────────────────────────┼───────────┼────────────┼────────────────────────────────────────┤
-│ 0       │ "Some Manga Title"          │ "Reading" │ "ONGOING"  │ "http://127.0.0.1:4567/12345"          │
-└─────────┴─────────────────────────────┴───────────┴────────────┴────────────────────────────────────────┘
+┌─────────┬─────────────────────────────┬──────────────────┬────────────┬───────────────┬─────────────────────────┬────────────────────────────────────────┐
+│ (index) │ Title                       │ Categories       │ Status     │ Type          │ % Of missing chapters  │ URL                                    │
+├─────────┼─────────────────────────────┼──────────────────┼────────────┼───────────────┼─────────────────────────┼────────────────────────────────────────┤
+│ 0       │ "Striked Manga Title"      │ ["Drama"]      │ "COMPLETED"│ STRIKED       │ 100.00                │ "http://127.0.0.1:4567/manga/11111"  │
+│ 1       │ "Suspicious Manga Title"   │ ["Action"]     │ "ONGOING" │ SUSPICIOUS    │ 41.20                 │ "http://127.0.0.1:4567/manga/22222"  │
+└─────────┴─────────────────────────────┴──────────────────┴────────────┴───────────────┴─────────────────────────┴────────────────────────────────────────┘
+Data exported to /path/to/mangadex.csv
 ```
 
 ---
@@ -72,4 +87,4 @@ MIT
 
 ## 👤 Maintainer
 
-[jipaix](https://github.com/jipaix) — Contributions and issues welcome!
+[jipaix](https://github.com/jipaix) — contributions and issues welcome!
