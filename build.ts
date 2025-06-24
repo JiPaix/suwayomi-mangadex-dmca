@@ -6,7 +6,7 @@ await build({
   entryPoints: [{
     kind: "bin",
     name: "suwayomi-mangadex-dmca", // command name
-    path: "./main.ts",
+    path: "./src/main.ts",
   }],
   outDir: "./npm",
   shims: {
