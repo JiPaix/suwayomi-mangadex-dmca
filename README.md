@@ -69,10 +69,10 @@ This tool produces two outputs:
 ```bash
 $ npx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
 ┌─────────┬─────────────────────────────┬──────────────────┬────────────┬───────────────┬─────────────────────────┬────────────────────────────────────────┐
-│ (index) │ Title                       │ Categories       │ Status     │ Type          │ % Of missing chapters  │ URL                                     │
+│ (index) │ Title                       │ Categories       │ Status     │ Type          │ % Of missing chapters   │ URL                                    │
 ├─────────┼─────────────────────────────┼──────────────────┼────────────┼───────────────┼─────────────────────────┼────────────────────────────────────────┤
-│ 0       │ "Striked Manga Title"       │ ["Drama"]        │ "COMPLETED"│ STRIKED       │ 100.00                  │ "http://127.0.0.1:4567/manga/11111"    │
-│ 1       │ "Suspicious Manga Title"    │ ["Action"]       │ "ONGOING"  │ SUSPICIOUS    │ 41.20                   │ "http://127.0.0.1:4567/manga/22222"    │
+│ 0       │ "Striked Manga Title"       │ ["Drama"]        │ "COMPLETED"│ "STRIKED"     │ 100.00                  │ "http://127.0.0.1:4567/manga/11111"    │
+│ 1       │ "Suspicious Manga Title"    │ ["Action"]       │ "ONGOING"  │ "SUSPICIOUS"  │ 41.20                   │ "http://127.0.0.1:4567/manga/22222"    │
 └─────────┴─────────────────────────────┴──────────────────┴────────────┴───────────────┴─────────────────────────┴────────────────────────────────────────┘
 Data exported to /path/to/mangadex.csv
 ```
