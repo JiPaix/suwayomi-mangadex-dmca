@@ -1,12 +1,25 @@
 # suwayomi-mangadex-dmca
 
-CLI utility to identify MangaDex titles in your Suwayomi library affected by takedowns — known as [The MangaDex Massacre](https://docs.google.com/spreadsheets/d/1vxvAHxmLLgAEEq-jWbDw5fxHMdz1N_PNWe3OPXtrin0).
+CLI & Web utility to identify MangaDex titles in your Suwayomi library affected by takedowns — known as [The MangaDex Massacre](https://docs.google.com/spreadsheets/d/1vxvAHxmLLgAEEq-jWbDw5fxHMdz1N_PNWe3OPXtrin0).
 
-It compares your library against a community-maintained Google Sheet to flag entries that are either removed from the sheet (STRIKED) or have over 10% missing chapters (SUSPICIOUS), then outputs both a console table and a CSV file (`mangadex.csv`).
+It compares your library against a community-maintained Google Sheet to flag entries that are either removed from the sheet (STRIKED) or have over 10% missing chapters (SUSPICIOUS). You can run it via a **graphical web interface** or a **command-line client**, producing both an on-screen table and a CSV report.
 
 ---
 
-## 📦 Installation & Usage
+## 🌐 Web Interface (Recommended)
+
+No installation needed—just open your browser:
+
+[https://jipaix.github.io/suwayomi-mangadex-dmca/](https://jipaix.github.io/suwayomi-mangadex-dmca/)
+
+* Interactive GUI for selecting your Suwayomi instance
+* Instant visual results and CSV download
+
+---
+
+## 📦 CLI Installation & Usage
+
+If you prefer a terminal-based workflow, install and run the CLI:
 
 ### Run via `npx` (Node.js)
 
@@ -31,48 +44,42 @@ deno run --allow-net --allow-write index.ts "http://127.0.0.1:4567"
 > * `--allow-net` is required to fetch data from your Suwayomi server and Google Sheets.
 > * `--allow-write` is required to generate the `mangadex.csv` file.
 
----
-
-## 🔐 Authentication
-
 If your Suwayomi instance requires basic auth, include credentials in the URL:
 
 ```bash
 npx suwayomi-mangadex-dmca "http://username:password@127.0.0.1:4567"
 ```
 
-Same applies for `bunx` or `deno run` usage.
-
 ---
 
 ## 📊 Output
 
-This tool produces two outputs:
+Both the web client and CLI produce:
 
-1. **Console Table**
+1. **Results Table**
 
    * **Title**: Manga title in your library
-   * **Categories**: Associated categories (if any)
-   * **Reading status**: Manga status (e.g. ONGOING, COMPLETED)
-   * **Detection type**: `STRIKED` if present in Mangadex Massacre sheet, or `SUSPICIOUS` if >10% chapters missing
+   * **Categories**: Associated categories
+   * **Reading status**: ONGOING, COMPLETED, etc.
+   * **Detection type**: `STRIKED` or `SUSPICIOUS`
    * **Missing chaps (%)**: Percentage of chapters missing
-   * **URL**: Direct link to the manga on your Suwayomi web UI
+   * **URL**: Link to the manga on your Suwayomi UI
 
 2. **CSV File** (`mangadex.csv`)
 
-   * Same columns as above, exported to the current directory.
+   * Same columns as above, downloadable directly from the web UI or saved locally by the CLI.
 
 ---
 
-## 🧪 Example Output
+## 🧪 Example CLI Output
 
 ```bash
 $ npx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
 ┌─────────┬─────────────────────────────┬──────────────────┬──────────────────┬────────────────┬─────────────────────────┬────────────────────────────────────────┐
 │ (index) │ Title                       │ Categories       │ Reading status   │ Detection type │ Missing chaps (%)       │ URL                                    │
 ├─────────┼─────────────────────────────┼──────────────────┼──────────────────┼────────────────┼─────────────────────────┼────────────────────────────────────────┤
-│ 0       │ "Striked Manga Title"       │ ["Drama"]        │ "COMPLETED"      │ "STRIKED"      │ 100.00                  │ "http://127.0.0.1:4567/manga/11111"    │
-│ 1       │ "Suspicious Manga Title"    │ ["Action"]       │ "ONGOING"        │ "SUSPICIOUS"   │ 41.20                   │ "http://127.0.0.1:4567/manga/22222"    │
+│ 0       │ "Striked Manga"             │ ["Drama"]        │ "COMPLETED"      │ "STRIKED"      │ 100.00                  │ "http://127.0.0.1:4567/manga/11111"    │
+│ 1       │ "Manga w/ missing chaps"    │ ["Action"]       │ "ONGOING"        │ "SUSPICIOUS"   │ 41.20                   │ "http://127.0.0.1:4567/manga/22222"    │
 └─────────┴─────────────────────────────┴──────────────────┴──────────────────┴────────────────┴─────────────────────────┴────────────────────────────────────────┘
 Data exported to /path/to/mangadex.csv
 ```
