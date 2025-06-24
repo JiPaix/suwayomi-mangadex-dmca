@@ -19,7 +19,8 @@ No installation needed—open your browser for a full GUI experience:
 
 * Interactive GUI for selecting your Suwayomi instance
 * Displays all results in a sortable table
-* Supports **any** manga source configured in Suwayomi (not just MangaDex)
+* Choose between viewing MangaDex-only titles or results from all sources.
+  * note: only MangaDex entries may be flagged as DMCA; other sources are only flagged if >10% of chapters are missing
 * Export the table as CSV for further analysis
 
 ---
