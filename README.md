@@ -23,6 +23,26 @@ No installation needed—open your browser for a full GUI experience:
   * note: only MangaDex entries may be flagged as DMCA; other sources are only flagged if >10% of chapters are missing
 * Export the table as CSV for further analysis
 
+<details>
+  <summary><h3>📸 Screenshots</h3></summary>
+
+  <br/>
+
+  ![Step 1](./docs/step1.png)  
+  *Step 1: Open the interface and select your Suwayomi instance*
+
+  <br/>
+
+  ![Step 2](./docs/step2.png)  
+  *Step 2: Select the Google Sheet source (or use the one by default)*
+
+  <br/>
+
+  ![Step 3](./docs/step3.png)  
+  *Step 3: Explore the list*
+
+</details>
+
 ---
 
 ## 📦 CLI Installation & Usage
