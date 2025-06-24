@@ -53,9 +53,9 @@ This tool produces two outputs:
 
    * **Title**: Manga title in your library
    * **Categories**: Associated categories (if any)
-   * **Status**: Manga status (e.g. ONGOING, COMPLETED)
-   * **Type**: `STRIKED` if present in Mangadex Massacre sheet, or `SUSPICIOUS` if >10% chapters missing
-   * **% Of missing chapters**: Percentage of chapters missing
+   * **Reading status**: Manga status (e.g. ONGOING, COMPLETED)
+   * **Detection type**: `STRIKED` if present in Mangadex Massacre sheet, or `SUSPICIOUS` if >10% chapters missing
+   * **Missing chaps (%)**: Percentage of chapters missing
    * **URL**: Direct link to the manga on your Suwayomi web UI
 
 2. **CSV File** (`mangadex.csv`)
@@ -68,12 +68,12 @@ This tool produces two outputs:
 
 ```bash
 $ npx suwayomi-mangadex-dmca "http://127.0.0.1:4567"
-┌─────────┬─────────────────────────────┬──────────────────┬────────────┬───────────────┬─────────────────────────┬────────────────────────────────────────┐
-│ (index) │ Title                       │ Categories       │ Status     │ Type          │ % Of missing chapters   │ URL                                    │
-├─────────┼─────────────────────────────┼──────────────────┼────────────┼───────────────┼─────────────────────────┼────────────────────────────────────────┤
-│ 0       │ "Striked Manga Title"       │ ["Drama"]        │ "COMPLETED"│ "STRIKED"     │ 100.00                  │ "http://127.0.0.1:4567/manga/11111"    │
-│ 1       │ "Suspicious Manga Title"    │ ["Action"]       │ "ONGOING"  │ "SUSPICIOUS"  │ 41.20                   │ "http://127.0.0.1:4567/manga/22222"    │
-└─────────┴─────────────────────────────┴──────────────────┴────────────┴───────────────┴─────────────────────────┴────────────────────────────────────────┘
+┌─────────┬─────────────────────────────┬──────────────────┬──────────────────┬────────────────┬─────────────────────────┬────────────────────────────────────────┐
+│ (index) │ Title                       │ Categories       │ Reading status   │ Detection type │ Missing chaps (%)       │ URL                                    │
+├─────────┼─────────────────────────────┼──────────────────┼──────────────────┼────────────────┼─────────────────────────┼────────────────────────────────────────┤
+│ 0       │ "Striked Manga Title"       │ ["Drama"]        │ "COMPLETED"      │ "STRIKED"      │ 100.00                  │ "http://127.0.0.1:4567/manga/11111"    │
+│ 1       │ "Suspicious Manga Title"    │ ["Action"]       │ "ONGOING"        │ "SUSPICIOUS"   │ 41.20                   │ "http://127.0.0.1:4567/manga/22222"    │
+└─────────┴─────────────────────────────┴──────────────────┴──────────────────┴────────────────┴─────────────────────────┴────────────────────────────────────────┘
 Data exported to /path/to/mangadex.csv
 ```
 
