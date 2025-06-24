@@ -52,7 +52,8 @@ const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?forma
 
 // FETCH AND PARSE SUWAYOMI
 type GqlResponse<T> = {errors?: any, data?: T}
-type MangaEntry = { id: number, title: string, source: { displayName: string }, status: string, realUrl: string, category: string }
+type MangaFetch = {id:number, title: string, source: string, realUrl: string, categories: string[] | null, status: string, missingPercent: number }
+type MangaEntry = {id: number, status: string, title: string, source: {displayName: string}, realUrl: string, chapters: { totalCount: number },  categories: {nodes: {name: string}[]}}
 
 async function fetchGraphQL<T = any>(payload: any): Promise<T> {
   const res = await fetch(GRAPHQL_URL, {
@@ -75,8 +76,37 @@ async function fetchGraphQL<T = any>(payload: any): Promise<T> {
 
   return json.data;
 }
+function countMissingChapters(chapters: number[]): number {
+  // Floor all values to their integer part and collect unique whole numbers
+  const allFlooredChapters = new Set(chapters.map(ch => Math.floor(ch)));
 
-async function fetchAllMangas(): Promise<{id:number, title: string, source: string, realUrl: string, categories: string[], status: string}[]> {
+  const maxChapter = Math.max(...Array.from(allFlooredChapters));
+  let missingCount = 0;
+
+  for (let i = 1; i <= maxChapter; i++) {
+    if (!allFlooredChapters.has(i)) {
+      missingCount++;
+    }
+  }
+
+  return missingCount;
+}
+async function fetchChaptersNumber(mangaId: number) {
+  const data = await fetchGraphQL({
+    operationName: "GET_CHAPTERS_MANGA",
+    variables: {order: [{by: "SOURCE_ORDER", byType: "DESC"}]},
+    query: `query GET_CHAPTERS_MANGA {
+      chapters(condition: {mangaId: ${mangaId}}) {
+        nodes {
+          chapterNumber
+        }
+      }
+    }`
+  })
+  return data.chapters.nodes.map((v: {chapterNumber: number}) => v.chapterNumber)
+}
+
+async function fetchAllMangas(): Promise<MangaFetch[]> {
   const data = await fetchGraphQL({
     operationName: "GET_MANGAS",
     variables: { order: [{ by: "ORDER" }] },
@@ -87,6 +117,9 @@ async function fetchAllMangas(): Promise<{id:number, title: string, source: stri
           title
           source {
             displayName
+          }
+          chapters {
+            totalCount
           }
           status
           realUrl
@@ -100,13 +133,21 @@ async function fetchAllMangas(): Promise<{id:number, title: string, source: stri
     }`
   });
 
-  return data.mangas.nodes.map((v: {id: number, status: string, title: string, source: {displayName: string}, realUrl: string,  categories: {nodes: {name: string}[]}}) => ({
+  return Promise.all<MangaFetch[]>(data.mangas.nodes.map(async (v: MangaEntry) => {
+    const missing = countMissingChapters(await fetchChaptersNumber(v.id))
+    const total = v.chapters.totalCount
+    const perc = missing / (total+missing)
+
+    return {
     id: v.id,
     title: v.title,
     source: v.source.displayName,
     realUrl: v.realUrl,
     categories: v.categories.nodes.length ? v.categories.nodes.map((n:{name: string}) => n.name) : null,
-    status: v.status
+    status: v.status,
+    missingPercent: perc
+  }
+
   }))
 
 }
@@ -140,6 +181,8 @@ async function fetchTitles(): Promise<Entry[]> {
   return data;
 }
 
+type Result = {title: string, categories: string[], status: string, type: string, missing: number, url: string}
+
 async function main() {
   const gSheet = await fetchTitles().catch((e) => {
     printError(e, {text: "Google Sheet", position: 0})
@@ -150,11 +193,28 @@ async function main() {
     Deno.exit(1);
   });
 
-  const striked = local.filter(v => 
-    gSheet.some(x => v.realUrl.includes(x.uuid))
-  ).map(v => ({title: v.title, categories: v.categories, status: v.status, url: `${SUWAYOMI.origin}/manga/${v.id}`}))
 
-  console.table(striked);
+  const results:Result[] = []
+
+  local.forEach(v => {
+    if(gSheet.some(x => v.realUrl.includes(x.uuid))) {
+      results.push({title: v.title, categories: v.categories || [], status: v.status, type: "STRIKED", missing: Number((v.missingPercent*100).toFixed(2)), url: `${SUWAYOMI.origin}/manga/${v.id}`})
+    } else if (v.missingPercent > 0.1) {
+      results.push({title: v.title, categories: v.categories || [], status: v.status, type: "SUSPICIOUS", missing: Number((v.missingPercent*100).toFixed(2)), url: `${SUWAYOMI.origin}/manga/${v.id}`})
+    }
+  })
+
+  console.table(toPretty(results));
+function toPretty(results: Result[]) {
+  return results.map(v => ({
+    "Title": v.title,
+    "Categories": v.categories,
+    "Status": v.status,
+    "Type": v.type,
+    "% Of missing chapters": v.missing,
+    "URL": v.url
+  }))
+}
 }
 
 main();
