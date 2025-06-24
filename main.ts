@@ -1,4 +1,4 @@
-import { parse } from "jsr:@std/csv";
+import { parse, stringify } from "jsr:@std/csv";
 
 let TEMPURL = Deno.args[0];
 let SUWAYOMI: URL
@@ -205,6 +205,11 @@ async function main() {
   })
 
   console.table(toPretty(results));
+  const path = new URL('./mangadex.csv', import.meta.url);
+  Deno.writeTextFileSync(path, toCSV(toPretty(results)));
+  console.log(`Data exported to ${Deno.realPathSync(path)}`)
+}
+
 function toPretty(results: Result[]) {
   return results.map(v => ({
     "Title": v.title,
@@ -215,6 +220,19 @@ function toPretty(results: Result[]) {
     "URL": v.url
   }))
 }
+
+function toCSV(results: ReturnType<typeof toPretty>) {
+  return stringify([
+    Object.keys(results[0]),
+    ...results.map(item => [
+      item.Title,
+      item.Categories,
+      item.Status,
+      item.Type,
+      item["% Of missing chapters"],
+      item.URL
+    ])
+  ])
 }
 
 main();
