@@ -1,13 +1,14 @@
 import { stringify } from "jsr:@std/csv/stringify";
 
-export type Table = {
+export type Table<T extends boolean = false> = {
     Title: string;
     Categories: string[] | undefined;
     "Reading status": string;
-    "Detection type": string;
+  "Detection type": T extends false ? "NONE" | "SUSPICIOUS" | "DMCA"
+    : "SUSPICIOUS" | "DMCA";
     "Missing chaps (%)": number;
     URL: string;
-}[]
+}[];
 
 export const ERROR = `Usage: node index.js "<SUWAYOMI_URL>"
 

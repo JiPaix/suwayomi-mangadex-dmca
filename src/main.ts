@@ -48,9 +48,9 @@ const gdoc = new Gdoc(CSV_URL);
     });
 
   try {
-  const match:Table = local
+    const match = local
     .map((v) => {
-      let type = "NONE";
+        let type: Table[0]["Detection type"] = "NONE";
 
       if (gSheet.some((x) => v.realUrl.includes(x.uuid))) type = "DMCA";
       else if (v.missingPercent > 0.1) type = "SUSPICIOUS";
@@ -64,9 +64,29 @@ const gdoc = new Gdoc(CSV_URL);
         "URL": `${SUWAYOMI.origin}/manga/${v.id}`,
       };
     })
-    .filter((v) => v['Detection type'] !== "NONE");
+      .filter((v) => v["Detection type"] !== "NONE") as Table<true>;
 
-  console.table(match.map(v => ({...v, Title: truncateString(v.Title, 50)})));
+    const table = match.sort((a, b) => {
+      const typePriority = (type: string) => {
+        if (type === "DMCA") return 0;
+        if (type === "SUSPICIOUS") return 1;
+        return 2;
+      };
+
+      const typeDiff = typePriority(a["Detection type"]) -
+        typePriority(b["Detection type"]);
+      if (typeDiff !== 0) return typeDiff;
+
+      return b["Missing chaps (%)"] - a["Missing chaps (%)"];
+    }).map((v) => ({
+      ...v,
+      "Missing chaps (%)": v["Detection type"] === "DMCA"
+        ? 100
+        : v["Missing chaps (%)"],
+      Title: truncateString(v.Title, 50),
+    }));
+
+    console.table(table);
 
   const csv = toCSV(match);
   const path = new URL("./mangadex.csv", import.meta.url);
