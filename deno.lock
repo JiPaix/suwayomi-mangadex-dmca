@@ -1,45 +1,31 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@david/code-block-writer@^13.0.2": "13.0.3",
-    "jsr:@deno/cache-dir@0.20": "0.20.1",
-    "jsr:@deno/dnt@~0.42.1": "0.42.1",
+    "jsr:@david/code-block-writer@^13.0.3": "13.0.3",
+    "jsr:@deno/dnt@~0.42.1": "0.42.3",
     "jsr:@std/assert@1": "1.0.13",
-    "jsr:@std/bytes@^1.0.5": "1.0.6",
+    "jsr:@std/bytes@^1.0.6": "1.0.6",
     "jsr:@std/csv@*": "1.0.6",
     "jsr:@std/fmt@1": "1.0.8",
-    "jsr:@std/fmt@^1.0.3": "1.0.8",
-    "jsr:@std/fs@1": "1.0.18",
-    "jsr:@std/fs@^1.0.6": "1.0.18",
-    "jsr:@std/internal@^1.0.6": "1.0.8",
-    "jsr:@std/io@0.225": "0.225.2",
-    "jsr:@std/path@1": "1.1.0",
-    "jsr:@std/path@^1.0.8": "1.1.0",
-    "jsr:@std/path@^1.1.0": "1.1.0",
-    "jsr:@std/streams@^1.0.9": "1.0.9",
-    "jsr:@ts-morph/bootstrap@0.25": "0.25.0",
-    "jsr:@ts-morph/common@0.25": "0.25.0"
+    "jsr:@std/fs@1": "1.0.19",
+    "jsr:@std/internal@^1.0.6": "1.0.10",
+    "jsr:@std/internal@^1.0.9": "1.0.10",
+    "jsr:@std/path@1": "1.1.1",
+    "jsr:@std/path@^1.1.1": "1.1.1",
+    "jsr:@std/streams@^1.0.9": "1.0.10",
+    "jsr:@ts-morph/bootstrap@0.27": "0.27.0",
+    "jsr:@ts-morph/common@0.27": "0.27.0"
   },
   "jsr": {
     "@david/code-block-writer@13.0.3": {
       "integrity": "f98c77d320f5957899a61bfb7a9bead7c6d83ad1515daee92dbacc861e13bb7f"
     },
-    "@deno/cache-dir@0.20.1": {
-      "integrity": "dc4f3add14307f3ff3b712441ea4acabcbfc9a13f67c5adc78c3aac16ac5e2a0",
-      "dependencies": [
-        "jsr:@std/fmt@^1.0.3",
-        "jsr:@std/fs@^1.0.6",
-        "jsr:@std/io",
-        "jsr:@std/path@^1.0.8"
-      ]
-    },
-    "@deno/dnt@0.42.1": {
-      "integrity": "85322b38eb40d4e8c5216d62536152c35b1bda9dc47c8c60860610397b960223",
+    "@deno/dnt@0.42.3": {
+      "integrity": "62a917a0492f3c8af002dce90605bb0d41f7d29debc06aca40dba72ab65d8ae3",
       "dependencies": [
         "jsr:@david/code-block-writer",
-        "jsr:@deno/cache-dir",
-        "jsr:@std/fmt@1",
-        "jsr:@std/fs@1",
+        "jsr:@std/fmt",
+        "jsr:@std/fs",
         "jsr:@std/path@1",
         "jsr:@ts-morph/bootstrap"
       ]
@@ -47,7 +33,7 @@
     "@std/assert@1.0.13": {
       "integrity": "ae0d31e41919b12c656c742b22522c32fb26ed0cba32975cb0de2a273cb68b29",
       "dependencies": [
-        "jsr:@std/internal"
+        "jsr:@std/internal@^1.0.6"
       ]
     },
     "@std/bytes@1.0.6": {
@@ -62,37 +48,38 @@
     "@std/fmt@1.0.8": {
       "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
     },
-    "@std/fs@1.0.18": {
-      "integrity": "24bcad99eab1af4fde75e05da6e9ed0e0dce5edb71b7e34baacf86ffe3969f3a",
+    "@std/fs@1.0.19": {
+      "integrity": "051968c2b1eae4d2ea9f79a08a3845740ef6af10356aff43d3e2ef11ed09fb06",
       "dependencies": [
-        "jsr:@std/path@^1.1.0"
+        "jsr:@std/internal@^1.0.9",
+        "jsr:@std/path@^1.1.1"
       ]
     },
-    "@std/internal@1.0.8": {
-      "integrity": "fc66e846d8d38a47cffd274d80d2ca3f0de71040f855783724bb6b87f60891f5"
+    "@std/internal@1.0.10": {
+      "integrity": "e3be62ce42cab0e177c27698e5d9800122f67b766a0bea6ca4867886cbde8cf7"
     },
-    "@std/io@0.225.2": {
-      "integrity": "3c740cd4ee4c082e6cfc86458f47e2ab7cb353dc6234d5e9b1f91a2de5f4d6c7",
+    "@std/path@1.1.1": {
+      "integrity": "fe00026bd3a7e6a27f73709b83c607798be40e20c81dde655ce34052fd82ec76",
+      "dependencies": [
+        "jsr:@std/internal@^1.0.9"
+      ]
+    },
+    "@std/streams@1.0.10": {
+      "integrity": "75c0b1431873cd0d8b3d679015220204d36d3c7420d93b60acfc379eb0dc30af",
       "dependencies": [
         "jsr:@std/bytes"
       ]
     },
-    "@std/path@1.1.0": {
-      "integrity": "ddc94f8e3c275627281cbc23341df6b8bcc874d70374f75fec2533521e3d6886"
-    },
-    "@std/streams@1.0.9": {
-      "integrity": "a9d26b1988cdd7aa7b1f4b51e1c36c1557f3f252880fa6cc5b9f37078b1a5035"
-    },
-    "@ts-morph/bootstrap@0.25.0": {
-      "integrity": "3cd33ee80ac0aab8e5d2660c639a02187f0c8abfe454636ce86c00eb7e8407db",
+    "@ts-morph/bootstrap@0.27.0": {
+      "integrity": "b8d7bc8f7942ce853dde4161b28f9aa96769cef3d8eebafb379a81800b9e2448",
       "dependencies": [
         "jsr:@ts-morph/common"
       ]
     },
-    "@ts-morph/common@0.25.0": {
-      "integrity": "e3ed1771e2fb61fbc3d2cb39ebbc4f89cd686d6d9bc6d91a71372be055ac1967",
+    "@ts-morph/common@0.27.0": {
+      "integrity": "c7b73592d78ce8479b356fd4f3d6ec3c460d77753a8680ff196effea7a939052",
       "dependencies": [
-        "jsr:@std/fs@1",
+        "jsr:@std/fs",
         "jsr:@std/path@1"
       ]
     }

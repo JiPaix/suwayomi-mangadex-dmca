@@ -3,11 +3,18 @@ import { build, emptyDir } from "@deno/dnt";
 await emptyDir("./npm");
 
 await build({
-  entryPoints: [{
-    kind: "bin",
-    name: "suwayomi-mangadex-dmca", // command name
-    path: "./src/main.ts",
-  }],
+  entryPoints: [
+    {
+      kind: "bin",
+      name: "suwayomi-mangadex-dmca", // command name
+      path: "./src/main.ts",
+    },
+    {
+      kind: "export",
+      name: ".",
+      path: "./src/lib.ts"
+    }
+  ],
   outDir: "./npm",
   shims: {
     // see JS docs for overview and more options

@@ -1,6 +1,6 @@
-import { parse, stringify } from "jsr:@std/csv";
+import { parse } from "jsr:@std/csv";
 
-type Entry = {
+export type Entry = {
   title: string;
   originalTitle: string;
   uuid: string;
