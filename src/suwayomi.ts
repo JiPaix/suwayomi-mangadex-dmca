@@ -19,12 +19,12 @@ export type GqlGetChapters = {
 };
 export type MangaFetch = {
   id: number;
-  title: Table[0]['Title'];
+  title: Table[0]["Title"];
   source: string;
-  realUrl: Table[0]['URL'];
-  categories: Table[0]['Categories'];
-  status: Table[0]['Reading status'];
-  missingPercent: Table[0]['Missing chaps (%)'];
+  realUrl: Table[0]["URL"];
+  categories: Table[0]["Categories"];
+  status: Table[0]["Reading status"];
+  missingPercent: Table[0]["Missing chaps (%)"];
 };
 
 export class Suwayuomi {

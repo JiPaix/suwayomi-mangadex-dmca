@@ -1,13 +1,13 @@
 import { stringify } from "jsr:@std/csv/stringify";
 
 export type Table<T extends boolean = false> = {
-    Title: string;
-    Categories: string[] | undefined;
-    "Reading status": string;
+  Title: string;
+  Categories: string[] | undefined;
+  "Reading status": string;
   "Detection type": T extends false ? "NONE" | "SUSPICIOUS" | "DMCA"
     : "SUSPICIOUS" | "DMCA";
-    "Missing chaps (%)": number;
-    URL: string;
+  "Missing chaps (%)": number;
+  URL: string;
 }[];
 
 export const ERROR = `Usage: node index.js "<SUWAYOMI_URL>"
@@ -44,8 +44,8 @@ export function toCSV(results: Table): string {
     Object.keys(results[0]),
     ...results.map((item) => [
       item.Title,
-      item.Categories?.join(' '),
-      item['Reading status'],
+      item.Categories?.join(" "),
+      item["Reading status"],
       item["Detection type"],
       item["Missing chaps (%)"],
       item.URL,

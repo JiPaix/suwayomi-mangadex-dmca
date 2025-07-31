@@ -29,11 +29,9 @@ const CSV_URL = new URL(
   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&id=${SHEET_ID}&gid=${GID}`,
 );
 
-
-
 async function main() {
-const suwayomi = new Suwayuomi(GRAPHQL_URL);
-const gdoc = new Gdoc(CSV_URL);
+  const suwayomi = new Suwayuomi(GRAPHQL_URL);
+  const gdoc = new Gdoc(CSV_URL);
 
   const gSheet = await gdoc.do()
     .catch((e) => {
@@ -49,21 +47,21 @@ const gdoc = new Gdoc(CSV_URL);
 
   try {
     const match = local
-    .map((v) => {
+      .map((v) => {
         let type: Table[0]["Detection type"] = "NONE";
 
-      if (gSheet.some((x) => v.realUrl.includes(x.uuid))) type = "DMCA";
-      else if (v.missingPercent > 0.1) type = "SUSPICIOUS";
+        if (gSheet.some((x) => v.realUrl.includes(x.uuid))) type = "DMCA";
+        else if (v.missingPercent > 0.1) type = "SUSPICIOUS";
 
-      return {
-        "Title": v.title,
-        "Categories": v.categories,
-        "Reading status": v.status,
-        "Detection type": type,
-        "Missing chaps (%)": Number((v.missingPercent * 100).toFixed(1)),
-        "URL": `${SUWAYOMI.origin}/manga/${v.id}`,
-      };
-    })
+        return {
+          "Title": v.title,
+          "Categories": v.categories,
+          "Reading status": v.status,
+          "Detection type": type,
+          "Missing chaps (%)": Number((v.missingPercent * 100).toFixed(1)),
+          "URL": `${SUWAYOMI.origin}/manga/${v.id}`,
+        };
+      })
       .filter((v) => v["Detection type"] !== "NONE") as Table<true>;
 
     const table = match.sort((a, b) => {
@@ -88,16 +86,14 @@ const gdoc = new Gdoc(CSV_URL);
 
     console.table(table);
 
-  const csv = toCSV(match);
-  const path = new URL("./mangadex.csv", import.meta.url);
-  Deno.writeTextFileSync(path, csv);
-  console.log(`Data exported to ${Deno.realPathSync(path)}`);
-  } catch(e) {
-    printError(e)
+    const csv = toCSV(match);
+    const path = new URL("./mangadex.csv", import.meta.url);
+    Deno.writeTextFileSync(path, csv);
+    console.log(`Data exported to ${Deno.realPathSync(path)}`);
+  } catch (e) {
+    printError(e);
     Deno.exit(1);
   }
-
 }
 
 main();
-
