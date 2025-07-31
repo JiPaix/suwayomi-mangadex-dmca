@@ -1,13 +1,16 @@
 # suwayomi-mangadex-dmca
 
-Web & CLI utility for identifying manga entries in your Suwayomi library that are either missing chapters or have been removed due to takedowns.
+Web & CLI utility for identifying manga entries in your Suwayomi library that
+are either missing chapters or have been removed due to takedowns.
 
-It uses a community-maintained Google Sheet — [**“The MangaDex Massacre”**](https://docs.google.com/spreadsheets/d/1vxvAHxmLLgAEEq-jWbDw5fxHMdz1N_PNWe3OPXtrin0) — which lists entries under DMCA notices.
+It uses a community-maintained Google Sheet —
+[**“The MangaDex Massacre”**](https://docs.google.com/spreadsheets/d/1vxvAHxmLLgAEEq-jWbDw5fxHMdz1N_PNWe3OPXtrin0)
+— which lists entries under DMCA notices.
 
 Entries are flagged in two categories:
 
-* **DMCA**: entries that are part of the DMCA list.
-* **SUSPICIOUS**: entries that miss more than 10% of their chapters.
+- **DMCA**: entries that are part of the DMCA list.
+- **SUSPICIOUS**: entries that miss more than 10% of their chapters.
 
 ---
 
@@ -17,29 +20,30 @@ No installation needed—open your browser for a full GUI experience:
 
 [https://jipaix.github.io/suwayomi-mangadex-dmca/](https://jipaix.github.io/suwayomi-mangadex-dmca/)
 
-* Interactive GUI for selecting your Suwayomi instance
-* Displays all results in a sortable table
-* Choose between viewing MangaDex-only titles or results from all sources.
-  * note: only MangaDex entries may be flagged as DMCA; other sources are only flagged if >10% of chapters are missing
-* Export the table as CSV for further analysis
+- Interactive GUI for selecting your Suwayomi instance
+- Displays all results in a sortable table
+- Choose between viewing MangaDex-only titles or results from all sources.
+  - note: only MangaDex entries may be flagged as DMCA; other sources are only
+    flagged if >10% of chapters are missing
+- Export the table as CSV for further analysis
 
 <details>
   <summary><h3>📸 Screenshots</h3></summary>
 
-  <br/>
+<br/>
 
-  ![Step 1](./docs/step1.png)  
-  *Step 1: Open the interface and select your Suwayomi instance*
+![Step 1](./docs/step1.png)\
+_Step 1: Open the interface and select your Suwayomi instance_
 
-  <br/>
+<br/>
 
-  ![Step 2](./docs/step2.png)  
-  *Step 2: Select the Google Sheet source (or use the one by default)*
+![Step 2](./docs/step2.png)\
+_Step 2: Select the Google Sheet source (or use the one by default)_
 
-  <br/>
+<br/>
 
-  ![Step 3](./docs/step3.png)  
-  *Step 3: Explore the list*
+![Step 3](./docs/step3.png)\
+_Step 3: Explore the list_
 
 </details>
 
@@ -69,8 +73,9 @@ deno run --allow-net --allow-write index.ts "http://127.0.0.1:4567"
 
 > **Note:**
 >
-> * `--allow-net` is required to fetch data from your Suwayomi server and Google Sheets.
-> * `--allow-write` is required to generate the `mangadex.csv` file.
+> - `--allow-net` is required to fetch data from your Suwayomi server and Google
+>   Sheets.
+> - `--allow-write` is required to generate the `mangadex.csv` file.
 
 If authentication is required, embed credentials in the URL:
 
@@ -86,16 +91,16 @@ Both interfaces produce:
 
 1. **Results Table**
 
-   * **Title**: Manga title in your library
-   * **Categories**: Associated categories
-   * **Reading status**: ONGOING, COMPLETED, etc.
-   * **Detection type**: `DMCA` or `SUSPICIOUS`
-   * **Missing chaps (%)**: Percentage of chapters missing
-   * **URL**: Link to the manga on your Suwayomi UI
+   - **Title**: Manga title in your library
+   - **Categories**: Associated categories
+   - **Reading status**: ONGOING, COMPLETED, etc.
+   - **Detection type**: `DMCA` or `SUSPICIOUS`
+   - **Missing chaps (%)**: Percentage of chapters missing
+   - **URL**: Link to the manga on your Suwayomi UI
 
 2. **CSV File** (`mangadex.csv`)
 
-   * Same columns as above, downloadable from web or saved locally by the CLI.
+   - Same columns as above, downloadable from web or saved locally by the CLI.
 
 ---
 

@@ -12,8 +12,8 @@ await build({
     {
       kind: "export",
       name: ".",
-      path: "./src/lib.ts"
-    }
+      path: "./src/lib.ts",
+    },
   ],
   outDir: "./npm",
   shims: {
@@ -24,7 +24,8 @@ await build({
     // package.json properties
     name: "suwayomi-mangadex-dmca",
     version: Deno.args[0],
-    description: "CLI utility for identifying manga entries in your Suwayomi library that are either missing chapters or have been removed due to takedowns.",
+    description:
+      "CLI utility for identifying manga entries in your Suwayomi library that are either missing chapters or have been removed due to takedowns.",
     license: "MIT",
     repository: {
       type: "git",
@@ -33,7 +34,14 @@ await build({
     bugs: {
       url: "https://github.com/jipaix/suwayomi-mangadex-dmca/issues",
     },
-    keywords: ["suwayomi", "tachidesk", "mangadex", "dmca", "missing", "chapters"]
+    keywords: [
+      "suwayomi",
+      "tachidesk",
+      "mangadex",
+      "dmca",
+      "missing",
+      "chapters",
+    ],
   },
   postBuild() {
     // steps to run after building and before running the tests
