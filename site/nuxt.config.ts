@@ -12,9 +12,14 @@ export default defineNuxtConfig({
   nitro: {
     output: {
       dir: '../docs',
-      publicDir: '../docs',
+      publicDir: '../docs'
     },
-    preset: 'github-pages'
+    preset: 'github-pages',
+    prerender: {
+      routes: [
+        '/_ipx/_/faviconlogo.png',
+      ],
+    },
   },
   vite: {
     resolve: {
