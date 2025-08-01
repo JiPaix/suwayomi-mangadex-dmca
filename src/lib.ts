@@ -44,7 +44,9 @@ async function main(
 
   try {
     graphql_url = new URL(url.toString());
-    graphql_url.pathname = graphql_url.pathname === '/' ? '/api/graphql' : `${graphql_url.pathname}/api/graphql`;
+    graphql_url.pathname = graphql_url.pathname === "/"
+      ? "/api/graphql"
+      : `${graphql_url.pathname}/api/graphql`;
     csv_url = new URL(
       `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&id=${sheetId}&gid=${sheetGid}`,
     );

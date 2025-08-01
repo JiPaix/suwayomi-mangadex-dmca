@@ -6,6 +6,7 @@
     "jsr:@std/assert@1": "1.0.13",
     "jsr:@std/bytes@^1.0.6": "1.0.6",
     "jsr:@std/csv@*": "1.0.6",
+    "jsr:@std/dotenv@*": "0.225.5",
     "jsr:@std/fmt@1": "1.0.8",
     "jsr:@std/fs@1": "1.0.19",
     "jsr:@std/internal@^1.0.6": "1.0.10",
@@ -14,7 +15,9 @@
     "jsr:@std/path@^1.1.1": "1.1.1",
     "jsr:@std/streams@^1.0.9": "1.0.10",
     "jsr:@ts-morph/bootstrap@0.27": "0.27.0",
-    "jsr:@ts-morph/common@0.27": "0.27.0"
+    "jsr:@ts-morph/common@0.27": "0.27.0",
+    "npm:@deno/shim-deno@~0.19.2": "0.19.2",
+    "npm:@types/node@*": "22.15.15"
   },
   "jsr": {
     "@david/code-block-writer@13.0.3": {
@@ -44,6 +47,9 @@
       "dependencies": [
         "jsr:@std/streams"
       ]
+    },
+    "@std/dotenv@0.225.5": {
+      "integrity": "9ce6f9d0ec3311f74a32535aa1b8c62ed88b1ab91b7f0815797d77a6f60c922f"
     },
     "@std/fmt@1.0.8": {
       "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
@@ -84,10 +90,42 @@
       ]
     }
   },
+  "npm": {
+    "@deno/shim-deno-test@0.5.0": {
+      "integrity": "sha512-4nMhecpGlPi0cSzT67L+Tm+GOJqvuk8gqHBziqcUQOarnuIax1z96/gJHCSIz2Z0zhxE6Rzwb3IZXPtFh51j+w=="
+    },
+    "@deno/shim-deno@0.19.2": {
+      "integrity": "sha512-q3VTHl44ad8T2Tw2SpeAvghdGOjlnLPDNO2cpOxwMrBE/PVas6geWpbpIgrM+czOCH0yejp0yi8OaTuB+NU40Q==",
+      "dependencies": [
+        "@deno/shim-deno-test",
+        "which"
+      ]
+    },
+    "@types/node@22.15.15": {
+      "integrity": "sha512-R5muMcZob3/Jjchn5LcO8jdKwSCbzqmPB6ruBxMcf9kbxtniZHP327s6C37iOfuw8mbKK3cAQa7sEl7afLrQ8A==",
+      "dependencies": [
+        "undici-types"
+      ]
+    },
+    "isexe@3.1.1": {
+      "integrity": "sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ=="
+    },
+    "undici-types@6.21.0": {
+      "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="
+    },
+    "which@4.0.0": {
+      "integrity": "sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==",
+      "dependencies": [
+        "isexe"
+      ],
+      "bin": true
+    }
+  },
   "workspace": {
     "dependencies": [
       "jsr:@deno/dnt@~0.42.1",
-      "jsr:@std/assert@1"
+      "jsr:@std/assert@1",
+      "npm:@deno/shim-deno@~0.19.2"
     ]
   }
 }
