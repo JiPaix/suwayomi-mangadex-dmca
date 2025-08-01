@@ -33,7 +33,7 @@ async function main(
     url = new URL(fullURL);
     url.search = "";
     const splitPath = url.pathname.split("/").filter(Boolean);
-    url.pathname = splitPath.length > 1 ? splitPath[0] : "/";
+    url.pathname = splitPath.length > 0 ? splitPath[0] : "/";
     url.hash = "";
   } catch (error) {
     return err({ error, hmr: "Invalid SUWAYOMI URL" });
@@ -44,7 +44,7 @@ async function main(
 
   try {
     graphql_url = new URL(url.toString());
-    graphql_url.pathname = "/api/graphql";
+    graphql_url.pathname = graphql_url.pathname === '/' ? '/api/graphql' : `${graphql_url.pathname}/api/graphql`;
     csv_url = new URL(
       `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&id=${sheetId}&gid=${sheetGid}`,
     );
