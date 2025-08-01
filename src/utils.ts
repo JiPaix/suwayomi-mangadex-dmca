@@ -1,4 +1,4 @@
-import { stringify } from "jsr:@std/csv/stringify";
+import { stringify } from 'csv/browser/esm/sync';
 
 export type Table<T extends boolean = false> = {
   Title: string;

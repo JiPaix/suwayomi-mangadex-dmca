@@ -1,0 +1,43 @@
+{
+  "name": "suwayomi-dmca",
+  "version": "0.3.0",
+  "description": "Web & CLI utility for identifying manga entries in your Suwayomi library that are either missing chapters or have been removed due to takedowns.",
+  "main": "dist/browser/lib.cjs.js",
+  "module": "dist/browser/lib.esm.js",
+  "types": "dist/browser/lib.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/browser/lib.esm.js",
+      "require": "./dist/browser/lib.cjs.js"
+    },
+    "./cli": {
+      "import": "./dist/node/main.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node build.mjs && tsc && tsc --project tsconfig.lib.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiPaix/suwayomi-mangadex-dmca.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JiPaix/suwayomi-mangadex-dmca/issues"
+  },
+  "homepage": "https://github.com/JiPaix/suwayomi-mangadex-dmca#readme",
+  "dependencies": {
+    "csv": "^6.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "esbuild": "^0.25.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}

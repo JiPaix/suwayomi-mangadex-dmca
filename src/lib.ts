@@ -1,6 +1,6 @@
-import { Entry, Gdoc } from "./gdoc.ts";
-import { MangaFetch, Suwayuomi } from "./suwayomi.ts";
-import type { Table } from "./utils.ts";
+import { Entry, Gdoc } from "./gdoc";
+import { MangaFetch, Suwayuomi } from "./suwayomi";
+import type { Table } from "./utils";
 
 function err({ error, hmr }: { error?: unknown; hmr: string }) {
   let err: string | null = null;
@@ -86,7 +86,7 @@ async function main(
           "Categories": v.categories,
           "Reading status": v.status,
           "Detection type": type,
-          "Missing chaps (%)": Number((v.missingPercent * 100).toFixed(1)),
+          "Missing chaps (%)": type === 'DMCA' ? 100 : Number((v.missingPercent * 100).toFixed(1)),
           "URL": `${url.origin}/manga/${v.id}`,
         };
       })

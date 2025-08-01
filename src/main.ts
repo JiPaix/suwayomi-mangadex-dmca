@@ -1,13 +1,13 @@
-import { ERROR, printError, Table, toCSV, truncateString } from "./utils.ts";
-import { Suwayuomi } from "./suwayomi.ts";
-import { Gdoc } from "./gdoc.ts";
-
-let TEMPURL = Deno.args[0];
+import { ERROR, printError, Table, toCSV, truncateString } from "./utils";
+import { Suwayuomi } from "./suwayomi";
+import { Gdoc } from "./gdoc";
+import { writeFileSync } from "node:fs";
+let TEMPURL = process.execArgv[0]
 let SUWAYOMI: URL;
 
 if (!TEMPURL) {
   console.error(ERROR);
-  Deno.exit(1);
+  process.exit(1)
 } else {
   try {
     const url = new URL(TEMPURL);
@@ -17,7 +17,7 @@ if (!TEMPURL) {
     SUWAYOMI = url;
   } catch (e) {
     printError(e);
-    Deno.exit(1);
+    process.exit(1);
   }
 }
 
@@ -36,13 +36,13 @@ async function main() {
   const gSheet = await gdoc.do()
     .catch((e) => {
       printError(e, { text: "Google Sheet", position: 0 });
-      Deno.exit(1);
+      process.exit(1);
     });
 
   const local = await suwayomi.do()
     .catch((e) => {
       printError(e, { text: "Suwayomi Instance", position: 0 });
-      Deno.exit(1);
+      process.exit(1);
     });
 
   try {
@@ -88,11 +88,12 @@ async function main() {
 
     const csv = toCSV(match);
     const path = new URL("./mangadex.csv", import.meta.url);
-    Deno.writeTextFileSync(path, csv);
-    console.log(`Data exported to ${Deno.realPathSync(path)}`);
+    
+    writeFileSync(path, csv, { encoding: 'utf-8' });
+    console.log(`Data exported to ${path.toString()}`);
   } catch (e) {
     printError(e);
-    Deno.exit(1);
+    process.exit(1);
   }
 }
 

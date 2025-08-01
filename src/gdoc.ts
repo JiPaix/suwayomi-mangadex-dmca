@@ -1,4 +1,4 @@
-import { parse } from "jsr:@std/csv";
+import { parse } from 'csv/browser/esm/sync';
 
 export type Entry = {
   title: string;

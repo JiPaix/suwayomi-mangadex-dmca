@@ -1,4 +1,4 @@
-import { Table } from "./utils.ts";
+import { Table } from "./utils";
 
 export type GqlResponse<T> = { errors?: string[] | Error[] | string; data?: T };
 export type GqlGetMangas = {
